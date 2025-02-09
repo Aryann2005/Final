@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Calibre:wght@700&display=swap');
+
+        body {
+            background-color: #ffebeb;
+            text-align: center;
+            font-family: 'Calibre', sans-serif;
+            overflow: hidden;
+        }
+
+        #valentineMessage {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ff0066;
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounceIn 1s forwards;
+        }
+
+        @keyframes bounceIn {
+            0% { top: -50px; opacity: 0; }
+            50% { top: 30px; opacity: 1; }
+            100% { top: 30px; }
+        }
+
+        .envelope {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 150px;
+            background: #ff3366;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .letter {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 230px;
+            height: 300px;
+            background: white;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 14px;
+            color: #ff69b4;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+
+        .stamp {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: yellow;
+            border: 3px solid yellow;
+            padding: 10px;
+            display: none;
+            animation: glow 1s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px yellow; }
+            to { text-shadow: 0 0 15px yellow; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="valentineMessage">HAPPY VALENTINE'S DAY💖 MY <br> LOVIEE CUTIEE PARTNER</h1>
+
+    <div class="envelope" onclick="openLetter()">📩 Open</div>
+
+    <div class="letter" id="letter">
+        <p id="letterText"></p>
+    </div>
+
+    <div class="stamp" id="stamp">OGGY</div>
+
+    <audio id="bgMusic" autoplay loop>
+        <source src="sweet_romantic_tone.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let audio = document.getElementById("bgMusic");
+            audio.volume = 0.5; // Medium volume set kiya hai
+            audio.play().catch(error => console.log("Autoplay blocked, user interaction required!"));
+        });
+
+        let text = `Ayushi,
+        
+        Sach bolun toh mujhe bade bade shabdon ki zaroorat nahi hai tujhe apni feelings batane ke liye. 
+        Tu meri life ka ek aisa hissa hai jo bina kisi dikhave ke, bina kisi zabardasti ke, bas apni jagah bana chuka hai.
+
+        Main jaanta hoon, kabhi tu overthink karti hai, kabhi mood swings aate hain, aur kabhi tere mann mein ajeeb ajeeb sawaal uthte hain. 
+        Par tu bas yeh yaad rakhna, chahe kuch bhi ho jaye, main yahin hoon—hamesha. Haath pakda hai toh kabhi chhodunga nahi, 
+        bas teri taraf bhi grip loose nahi honi chahiye.
+
+        Tere bina bhi life chalti rahegi, par tu hai toh sab kuch zyada behtar lagta hai. 
+        Teri hassi, tere nakhre, teri baatein—sab kuch.
+
+        Isliye bas itna hi kahunga, Happy Valentine's Day, meri overthinking queen. 
+        Tu tension mat le, main abhi bhi yahin hoon, aur hamesha rahunga.`;
+
+        function openLetter() {
+            let letter = document.getElementById("letter");
+            letter.style.display = "block";
+
+            let i = 0;
+            let interval = setInterval(() => {
+                if (i < text.length) {
+                    document.getElementById("letterText").innerHTML += text[i];
+                    i++;
+                    letter.scrollTop = letter.scrollHeight;
+                } else {
+                    clearInterval(interval);
+                    setTimeout(foldLetter, 2000);
+                }
+            }, 50);
+        }
+
+        function foldLetter() {
+            let letter = document.getElementById("letter");
+            letter.style.transition = "transform 1s ease-in-out";
+            letter.style.transform = "scaleY(0)";
+            
+            setTimeout(() => {
+                letter.style.display = "none";
+                setTimeout(() => {
+                    showStamp();
+                }, 2000);
+            }, 1000);
+        }
+
+        function showStamp() {
+            let stamp = document.getElementById("stamp");
+            stamp.style.display = "block";
+
+            setTimeout(() => {
+                document.body.style.animation = "none"; // End animation pause
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>

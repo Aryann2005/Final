@@ -101,7 +101,7 @@
 
     <div class="stamp" id="stamp">OGGY</div>
 
-    <audio id="bgMusic" autoplay loop>
+    <audio id="bgMusic" loop>
         <source src="sweet_romantic_tone.mp3" type="audio/mp3">
     </audio>
 
@@ -109,7 +109,6 @@
         document.addEventListener('DOMContentLoaded', function () {
             let audio = document.getElementById("bgMusic");
             audio.volume = 0.5; // Medium volume set kiya hai
-            audio.play().catch(error => console.log("Autoplay blocked, user interaction required!"));
         });
 
         let text = `Ayushi,
@@ -129,7 +128,12 @@
 
         function openLetter() {
             let letter = document.getElementById("letter");
+            let envelope = document.querySelector(".envelope");
+            let audio = document.getElementById("bgMusic");
+
+            envelope.style.display = "none"; // Button ko hata diya
             letter.style.display = "block";
+            audio.play(); // Song play start hoga
 
             let i = 0;
             let interval = setInterval(() => {
@@ -148,19 +152,16 @@
             let letter = document.getElementById("letter");
             letter.style.transition = "transform 1s ease-in-out";
             letter.style.transform = "scaleY(0)";
-            
+
             setTimeout(() => {
                 letter.style.display = "none";
-                setTimeout(() => {
-                    showStamp();
-                }, 2000);
+                setTimeout(showStamp, 2000);
             }, 1000);
         }
 
         function showStamp() {
             let stamp = document.getElementById("stamp");
             stamp.style.display = "block";
-
             setTimeout(() => {
                 document.body.style.animation = "none"; // End animation pause
             }, 3000);
